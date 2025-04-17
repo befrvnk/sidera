@@ -1,2 +1,3 @@
 # sidera
-A monorepo for all my Kotlin projects
+
+> In Latin "sidera" is the plural form of "sidus." It refers to multiple constellations or groups of stars in the sky.

@@ -1,0 +1,26 @@
+package {package_name}
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
+import {package_name}.nav.{file_base_name}NavDirections
+import com.freeletics.khonshu.codegen.NavDestination
+
+@NavDestination(
+    route = {file_base_name}NavDirections::class,
+    stateMachine = {file_base_name}StateMachine::class,
+)
+@Composable
+internal fun {file_base_name}Ui(
+    state: {file_base_name}State,
+    sendAction: ({file_base_name}Action) -> Unit,
+) {
+}
+
+@Composable
+@Preview
+private fun {file_base_name}UiPreview() {
+    {file_base_name}Ui(
+        state = Default{file_base_name}State,
+        sendAction = {},
+    )
+}

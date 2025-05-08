@@ -2,6 +2,10 @@
 
 > In Latin "sidera" is the plural form of "sidus." It refers to multiple constellations or groups of stars in the sky.
 
+# Projects
+
+- [CMD](cmd/README.md) A command line tool to automate repetitive tasks.
+
 # License
 
 ```

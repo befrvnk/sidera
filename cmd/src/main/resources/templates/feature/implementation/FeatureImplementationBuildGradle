@@ -1,0 +1,17 @@
+plugins {
+    alias(libs.plugins.fgp.feature)
+}
+
+freeletics {
+    useDaggerWithKhonshu()
+}
+
+dependencies {
+    api(libs.flowredux)
+    api(libs.khonshu.navigation.runtime)
+    api(projects.core.stateMachine.api)
+    api(projects.{module_accessor}.nav)
+
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui.tooling)
+}

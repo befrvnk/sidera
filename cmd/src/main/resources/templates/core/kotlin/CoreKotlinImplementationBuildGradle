@@ -1,0 +1,10 @@
+plugins {
+    alias(libs.plugins.fgp.core.kotlin)
+}
+
+freeletics {
+    useDagger()
+}
+
+dependencies {
+}

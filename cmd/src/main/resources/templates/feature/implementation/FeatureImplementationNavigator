@@ -1,0 +1,17 @@
+package {package_name}
+
+import {package_name}.nav.{file_base_name}NavDirections
+import com.freeletics.khonshu.navigation.ActivityNavigator
+import com.freeletics.khonshu.navigation.DestinationNavigator
+import com.freeletics.khonshu.navigation.HostNavigator
+import com.squareup.anvil.annotations.optional.ForScope
+import com.squareup.anvil.annotations.optional.SingleIn
+import com.squareup.anvil.annotations.ContributesBinding
+import javax.inject.Inject
+
+@ForScope({file_base_name}NavDirections::class)
+@SingleIn({file_base_name}NavDirections::class)
+@ContributesBinding({file_base_name}NavDirections::class, ActivityNavigator::class)
+class {file_base_name}Navigator @Inject constructor(
+    hostNavigator: HostNavigator,
+) : DestinationNavigator(hostNavigator)

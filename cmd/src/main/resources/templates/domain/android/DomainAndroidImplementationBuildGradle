@@ -1,0 +1,10 @@
+plugins {
+    alias(libs.plugins.fgp.domain.android)
+}
+
+freeletics {
+    useDagger()
+}
+
+dependencies {
+}

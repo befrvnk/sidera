@@ -1,0 +1,10 @@
+plugins {
+    alias(libs.plugins.fgp.nav)
+}
+
+freeletics {
+}
+
+dependencies {
+    api(libs.khonshu.navigation.runtime)
+}

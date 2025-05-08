@@ -1,0 +1,22 @@
+package {package_name}
+
+import {package_name}.nav.{file_base_name}NavDirections
+import com.freeletics.flowredux.dsl.FlowReduxStateMachine
+import com.squareup.anvil.annotations.optional.SingleIn
+import dev.befrvnk.core.statemachine.RememberingFlowReduxStateMachine
+import javax.inject.Inject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+
+@OptIn(ExperimentalCoroutinesApi::class)
+@SingleIn({file_base_name}NavDirections::class)
+class {file_base_name}StateMachine @Inject constructor(
+    private val navigator: {file_base_name}Navigator,
+    private val navDirections: {file_base_name}NavDirections,
+) : RememberingFlowReduxStateMachine<{file_base_name}State, {file_base_name}Action>(
+    Default{file_base_name}State
+) {
+    init {
+        spec {
+        }
+    }
+}

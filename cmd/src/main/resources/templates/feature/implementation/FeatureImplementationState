@@ -1,0 +1,5 @@
+package {package_name}
+
+sealed interface {file_base_name}State
+
+data object Default{file_base_name}State : {file_base_name}State

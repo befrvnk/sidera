@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+
+# Build the shadow JAR
+./gradlew :cmd:shadowJar --quiet
+
+# Run the JAR, passing through all script arguments
+java -jar cmd/build/libs/cmd-all.jar "$@"

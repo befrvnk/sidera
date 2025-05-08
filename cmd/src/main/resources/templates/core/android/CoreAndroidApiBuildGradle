@@ -1,0 +1,9 @@
+plugins {
+    alias(libs.plugins.fgp.core.android)
+}
+
+freeletics {
+}
+
+dependencies {
+}

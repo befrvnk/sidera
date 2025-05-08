@@ -1,0 +1,3 @@
+package {package_name}
+
+sealed interface {file_base_name}Action

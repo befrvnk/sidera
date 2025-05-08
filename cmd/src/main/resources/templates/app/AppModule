@@ -1,0 +1,15 @@
+package {package_name}
+
+import android.app.Application
+import android.content.Context
+import com.freeletics.khonshu.codegen.AppScope
+import com.squareup.anvil.annotations.ContributesTo
+import dagger.Module
+import dagger.Provides
+
+@Module
+@ContributesTo(AppScope::class)
+object {file_base_name}AppModule {
+    @Provides
+    fun provideContext(application: Application): Context = application
+}

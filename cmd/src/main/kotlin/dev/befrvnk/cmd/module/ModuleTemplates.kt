@@ -3,6 +3,31 @@ package dev.befrvnk.cmd.module
 import dev.befrvnk.cmd.generated.GeneratedTemplates
 
 enum class ModuleTemplates(val templates: List<Template>) {
+    APP(
+        listOf(
+            Template.Directory(path = "{module_path}/src/main/kotlin/{package_path}/"),
+            Template.File(
+                path = "{module_path}/src/main/kotlin/{package_path}/{file_base_name}App.kt",
+                content = GeneratedTemplates.App,
+            ),
+            Template.File(
+                path = "{module_path}/src/main/AndroidManifest.xml",
+                content = GeneratedTemplates.AppAndroidManifest,
+            ),
+            Template.File(
+                path = "{module_path}/{gradle_file_name}.gradle.kts",
+                content = GeneratedTemplates.AppBuildGradle,
+            ),
+            Template.File(
+                path = "{module_path}/src/main/kotlin/{package_path}/{file_base_name}AppComponent.kt",
+                content = GeneratedTemplates.AppComponent,
+            ),
+            Template.File(
+                path = "{module_path}/src/main/kotlin/{package_path}/{file_base_name}AppModule.kt",
+                content = GeneratedTemplates.AppModule,
+            ),
+        )
+    ),
     CORE_ANDROID_API(
         listOf(
             Template.Directory(path = "{module_path}/api/src/main/kotlin/{package_path}/"),

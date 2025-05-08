@@ -34,6 +34,13 @@ class ModuleCommand : CliktCommand(name = "module") {
             .split("-")
             .first()
         val modules = when (moduleType) {
+            "app" -> {
+                print("App label: ")
+                val appLabel =
+                    readlnOrNull()?.ifEmpty { variables["app_label"]!! } ?: throw Exception("App label is required")
+                variables["app_label"] = appLabel
+                listOf(ModuleTemplates.APP)
+            }
             "core" -> {
                 print("Kotlin or Android module [kotlin]: ")
                 val platformType = readlnOrNull()?.ifEmpty { "kotlin" } ?: "kotlin"

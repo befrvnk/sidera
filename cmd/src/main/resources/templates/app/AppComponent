@@ -1,0 +1,24 @@
+package {package_name}
+
+import android.app.Application
+import com.freeletics.khonshu.codegen.AppScope
+import com.squareup.anvil.annotations.MergeComponent
+import com.squareup.anvil.annotations.optional.SingleIn
+import dagger.BindsInstance
+
+@SingleIn(AppScope::class)
+@MergeComponent(scope = AppScope::class)
+interface {file_base_name}AppComponent {
+    @MergeComponent.Factory
+    interface Factory {
+        fun create(
+            @BindsInstance application: Application,
+        ): {file_base_name}AppComponent
+    }
+
+    companion object {
+        fun factory(): Factory {
+            return DaggerAppComponent.factory()
+        }
+    }
+}

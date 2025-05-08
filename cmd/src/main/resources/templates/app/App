@@ -1,0 +1,34 @@
+package {package_name}
+
+import android.app.Application
+import com.freeletics.khonshu.codegen.AppScope
+import {package_name}.BuildConfig
+import timber.log.Timber
+
+class {file_base_name}App : Application() {
+    private var component: {file_base_name}AppComponent? = null
+
+    override fun onCreate() {
+        super.onCreate()
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+    }
+
+    override fun getSystemService(name: String): Any? {
+        if (name == AppScope::class.qualifiedName) {
+            return component()
+        }
+        return super.getSystemService(name)
+    }
+
+    private fun component(): {file_base_name}AppComponent {
+        var component = this.component
+        if (component == null) {
+            component = {file_base_name}AppComponent.factory().create(this)
+            this.component = component
+        }
+        return component
+    }
+}

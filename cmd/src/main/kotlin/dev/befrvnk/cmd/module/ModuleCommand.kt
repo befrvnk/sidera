@@ -34,6 +34,21 @@ class ModuleCommand : CliktCommand(name = "module") {
             .split("-")
             .first()
         val modules = when (moduleType) {
+            "api" -> {
+                print("Application Name: ")
+                val appName = readlnOrNull()?.ifEmpty { variables["application_name"]!! }
+                    ?: throw Exception("Application name is required")
+                variables["application_name"] = appName
+                print("Full Name: ")
+                val fullName = readlnOrNull()?.ifEmpty { variables["full_name"]!! }
+                    ?: throw Exception("Full name is required")
+                variables["full_name"] = fullName
+                print("Email: ")
+                val email = readlnOrNull()?.ifEmpty { variables["email"]!! }
+                    ?: throw Exception("Email is required")
+                variables["email"] = email
+                listOf(ModuleTemplates.API)
+            }
             "app" -> {
                 print("App label: ")
                 val appLabel =

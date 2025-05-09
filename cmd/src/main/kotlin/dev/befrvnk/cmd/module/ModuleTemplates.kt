@@ -3,6 +3,32 @@ package dev.befrvnk.cmd.module
 import dev.befrvnk.cmd.generated.GeneratedTemplates
 
 enum class ModuleTemplates(val templates: List<Template>) {
+    API(
+        listOf(
+            Template.Directory(path = "{module_path}/src/main/kotlin/{package_path}/"),
+            Template.Directory(path = "{module_path}/src/main/resources/static"),
+            Template.File(
+                path = "{module_path}/src/main/kotlin/{package_path}/{file_base_name}Application.kt",
+                content = GeneratedTemplates.ApiApplication,
+            ),
+            Template.File(
+                path = "{module_path}/src/main/resources/application.conf",
+                content = GeneratedTemplates.ApiApplicationConf,
+            ),
+            Template.File(
+                path = "{module_path}/{gradle_file_name}.gradle.kts",
+                content = GeneratedTemplates.ApiBuildGradle,
+            ),
+            Template.File(
+                path = "{module_path}/src/main/resources/static/privacy-policy.html",
+                content = GeneratedTemplates.ApiPrivacyPolicy,
+            ),
+            Template.File(
+                path = "{module_path}/src/main/resources/static/terms-and-conditions.html",
+                content = GeneratedTemplates.ApiTermsAndConditions,
+            ),
+        )
+    ),
     APP(
         listOf(
             Template.Directory(path = "{module_path}/src/main/kotlin/{package_path}/"),
@@ -112,7 +138,7 @@ enum class ModuleTemplates(val templates: List<Template>) {
                 content = GeneratedTemplates.FeatureImplementationBuildGradle,
             ),
             Template.File(
-                path =  "{module_path}/implementation/src/main/kotlin/{package_path}/{file_base_name}Navigator.kt",
+                path = "{module_path}/implementation/src/main/kotlin/{package_path}/{file_base_name}Navigator.kt",
                 content = GeneratedTemplates.FeatureImplementationNavigator,
             ),
             Template.File(

@@ -1,0 +1,21 @@
+plugins {
+    application
+    alias(libs.plugins.fgp.jvm)
+    alias(libs.plugins.ktor)
+}
+
+application {
+    applicationName = "{application_name}"
+    mainClass.set("io.ktor.server.netty.EngineMain")
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("{application_name}.jar")
+    }
+}
+
+dependencies {
+    implementation(libs.ktor.server.core.jvm)
+    implementation(libs.ktor.server.core.netty.jvm)
+}

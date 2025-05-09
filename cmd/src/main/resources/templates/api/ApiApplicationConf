@@ -1,0 +1,10 @@
+ktor {
+  deployment {
+    port = 8080
+  }
+  application {
+    modules = [
+      "{package_name}.{file_base_name}ApplicationKt.module"
+    ]
+  }
+}

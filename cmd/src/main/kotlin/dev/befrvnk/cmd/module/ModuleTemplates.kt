@@ -20,6 +20,10 @@ enum class ModuleTemplates(val templates: List<Template>) {
                 content = GeneratedTemplates.ApiBuildGradle,
             ),
             Template.File(
+                path = "{module_path}/{gradle_file_name}.fly.toml",
+                content = GeneratedTemplates.ApiFlyToml,
+            ),
+            Template.File(
                 path = "{module_path}/src/main/resources/static/privacy-policy.html",
                 content = GeneratedTemplates.ApiPrivacyPolicy,
             ),

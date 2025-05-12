@@ -4,14 +4,36 @@ plugins {
     alias(libs.plugins.ktor)
 }
 
+val mainClassExtra by extra("io.ktor.server.netty.EngineMain")
+
 application {
     applicationName = "{application_name}"
-    mainClass.set("io.ktor.server.netty.EngineMain")
+    mainClass = mainClassExtra
 }
 
 ktor {
-    fatJar {
-        archiveFileName.set("{application_name}.jar")
+    jib {
+
+        container {
+            ports = listOf("8080")
+            mainClass = mainClassExtra
+
+            // good defaults intended for Java 8 (>= 8u191) containers
+            jvmFlags = listOf(
+                "-server",
+                "-Djava.awt.headless=true",
+                "-XX:InitialRAMFraction=2",
+                "-XX:MinRAMFraction=2",
+                "-XX:MaxRAMFraction=2",
+                "-XX:+UseG1GC",
+                "-XX:MaxGCPauseMillis=100",
+                "-XX:+UseStringDeduplication"
+            )
+        }
+        to {
+            image = "docker.io/befrvnk/{application_name}"
+            tags = setOf("latest")
+        }
     }
 }
 

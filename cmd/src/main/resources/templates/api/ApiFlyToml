@@ -1,0 +1,9 @@
+app = "{application_name}"
+
+primary_region = "fra"
+
+[build]
+    image = "befrvnk/{application_name}:latest"
+
+[http_service]
+    internal_port = 8080

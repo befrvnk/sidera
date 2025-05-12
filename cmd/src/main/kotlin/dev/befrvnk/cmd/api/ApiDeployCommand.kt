@@ -36,7 +36,7 @@ class ApiPublishCommand : CliktCommand(name = "deploy") {
         executeCommand(
             commandParts = listOf(
                 "fly", "deploy",
-                "--config", "api/$projectName/$projectName-fly.toml",
+                "--config", "api/$projectName/api-$projectName.fly.toml",
                 "--access-token", flyApiToken,
             ),
         ).collect {

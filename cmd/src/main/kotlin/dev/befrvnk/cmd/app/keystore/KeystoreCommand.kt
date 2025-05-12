@@ -1,10 +1,8 @@
-package dev.befrvnk.cmd.keystore
+package dev.befrvnk.cmd.app.keystore
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.core.subcommands
-
-internal const val environmentFilePath = ".env/keystore_distinguished_name.env"
 
 val keystoreCommand = KeystoreCommand().subcommands(
     KeystoreGenerateCommand(),

@@ -1,15 +1,9 @@
-package dev.befrvnk.cmd.keystore
+package dev.befrvnk.cmd.app.keystore
 
-import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.core.Context
-import com.github.ajalt.clikt.parameters.options.check
-import com.github.ajalt.clikt.parameters.options.option
-import com.github.ajalt.clikt.parameters.options.required
 import dev.befrvnk.cmd.utils.executeCommand
 import dev.befrvnk.cmd.utils.generateSecurePassword
 import dev.befrvnk.cmd.utils.loadSecret
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.runBlocking
 import kotlinx.io.buffered
 import kotlinx.io.files.Path
 import kotlinx.io.files.SystemFileSystem
@@ -17,17 +11,29 @@ import kotlinx.io.readByteArray
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 
-class KeystoreGenerateCommand : CliktCommand(name = "generate") {
-    val name: String by option(
-        "-n", "--name",
-        help = "Name of the keystore to generate",
-    ).required().check { it.all { char -> char.isLowerCase() } }
+private const val environmentFilePath = ".env/keystore_distinguished_name.env"
 
-    override fun help(context: Context) =
-        "Generates a keystore file for the project. Outputs the base64 encoded file, alias, and password."
+internal object KeystoreTask {
+    @OptIn(ExperimentalEncodingApi::class)
+    suspend fun create(name: String) {
+        val keystoreFileName = "$name.jks"
+        val keystoreBase64 = loadSecret("KEY_STORE_FILE_ENCODED", environmentFilePath)
+        val keystoreBytes = Base64.Default.decode(keystoreBase64)
+        val keystoreSink = SystemFileSystem.sink(Path(keystoreFileName))
+        keystoreSink.buffered().write(keystoreBytes)
+        println("Created keystore file: $keystoreFileName")
+    }
+
+    fun delete(name: String) {
+        val keystoreFileName = "$name.jks"
+        SystemFileSystem.delete(
+            path = Path(keystoreFileName),
+            mustExist = false,
+        )
+    }
 
     @OptIn(ExperimentalEncodingApi::class)
-    override fun run() = runBlocking {
+    suspend fun generate(name: String) {
         val storePass = "pass:${generateSecurePassword(20)}"
         val keystoreFileName = "$name.jks"
         val commonName = loadSecret("COMMON_NAME", environmentFilePath)
@@ -56,14 +62,14 @@ class KeystoreGenerateCommand : CliktCommand(name = "generate") {
 
         val base64String = Base64.Default.encode(keystoreBytes)
 
-        echo(
+        println(
             "Generated keystore for $name. Please save these values into your 1Password vault and create" +
                     " a environment file in .env for the following values:"
         )
-        echo("Alias: $name")
-        echo("Store pass: $storePass")
-        echo("Keystore file base64:")
-        echo(base64String)
+        println("Alias: $name")
+        println("Store pass: $storePass")
+        println("Keystore file base64:")
+        println(base64String)
 
         // Delete the keystore file after base64 conversion
         SystemFileSystem.delete(

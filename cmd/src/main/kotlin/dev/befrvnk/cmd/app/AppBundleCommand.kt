@@ -5,8 +5,10 @@ import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.options.validate
+import dev.befrvnk.cmd.utils.ProcessEvent
 import dev.befrvnk.cmd.utils.executeCommand
 import dev.befrvnk.cmd.utils.loadSecret
+import kotlinx.coroutines.runBlocking
 import kotlinx.io.buffered
 import kotlinx.io.files.Path
 import kotlinx.io.files.SystemFileSystem
@@ -27,7 +29,7 @@ class AppBundleCommand : CliktCommand(name = "bundle") {
     override fun help(context: Context): String = "Creates a release bundle for the given project."
 
     @OptIn(ExperimentalEncodingApi::class)
-    override fun run() {
+    override fun run() = runBlocking {
         val envFilePath = ".env/app_${projectName}.env"
         val gradleBundleRelease = "./gradlew :app:${projectName}:bundleRelease --rerun-tasks || " +
                 "{ echo \"Gradle publish failed\" >&2; exit 1; }"
@@ -54,8 +56,11 @@ class AppBundleCommand : CliktCommand(name = "bundle") {
         """.trimIndent()
         )
 
-        val output = executeCommand(command)
-
-        echo(output)
+        executeCommand(command).collect {
+            when (it) {
+                is ProcessEvent.OutputLine -> echo(it.line)
+                else -> {}
+            }
+        }
     }
 }

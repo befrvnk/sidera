@@ -10,7 +10,7 @@ application {
 
 dependencies {
     implementation(libs.clikt)
-    implementation(libs.kommand)
+    implementation(libs.kotlinx.coroutines)
     implementation(libs.kotlinx.io)
 
     testImplementation(libs.kotest.assertions.core)

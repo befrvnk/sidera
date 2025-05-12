@@ -6,6 +6,7 @@ import com.github.ajalt.clikt.parameters.options.check
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import dev.befrvnk.cmd.utils.loadSecret
+import kotlinx.coroutines.runBlocking
 import kotlinx.io.buffered
 import kotlinx.io.files.Path
 import kotlinx.io.files.SystemFileSystem
@@ -22,7 +23,7 @@ class KeystoreCreateCommand : CliktCommand(name = "create") {
     override fun help(context: Context) = "Creates a keystore file from a base64 string stored in 1Password."
 
     @OptIn(ExperimentalEncodingApi::class)
-    override fun run() {
+    override fun run() = runBlocking {
         val keystoreFileName = "$name.jks"
         val keystoreBase64 = loadSecret("KEY_STORE_FILE_ENCODED", environmentFilePath)
         val keystoreBytes = Base64.Default.decode(keystoreBase64)

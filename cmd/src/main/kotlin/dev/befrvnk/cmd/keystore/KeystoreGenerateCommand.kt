@@ -8,6 +8,8 @@ import com.github.ajalt.clikt.parameters.options.required
 import dev.befrvnk.cmd.utils.executeCommand
 import dev.befrvnk.cmd.utils.generateSecurePassword
 import dev.befrvnk.cmd.utils.loadSecret
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.runBlocking
 import kotlinx.io.buffered
 import kotlinx.io.files.Path
 import kotlinx.io.files.SystemFileSystem
@@ -25,7 +27,7 @@ class KeystoreGenerateCommand : CliktCommand(name = "generate") {
         "Generates a keystore file for the project. Outputs the base64 encoded file, alias, and password."
 
     @OptIn(ExperimentalEncodingApi::class)
-    override fun run() {
+    override fun run() = runBlocking {
         val storePass = "pass:${generateSecurePassword(20)}"
         val keystoreFileName = "$name.jks"
         val commonName = loadSecret("COMMON_NAME", environmentFilePath)
@@ -46,7 +48,7 @@ class KeystoreGenerateCommand : CliktCommand(name = "generate") {
             "-dname", "CN=$commonName, L=$locality, ST=$state, C=$countryCode",
         )
 
-        executeCommand(commandParts)
+        executeCommand(commandParts).collect()
 
         // Read the keystore file and convert to base64
         val keystoreSource = SystemFileSystem.source(Path(keystoreFileName))

@@ -22,3 +22,10 @@ plugins {
 
     alias(libs.plugins.fgp.root)
 }
+
+// Workaround for jib tasks in api projects
+buildscript {
+    dependencies {
+        classpath(libs.commons.compress)
+    }
+}

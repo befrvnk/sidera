@@ -33,12 +33,12 @@ internal object ApiTask {
     /**
      * Deploys a project using Fly CLI with a specified configuration file.
      *
-     * @param projectName The name of the project to deploy, which determines
+     * @param project The name of the project to deploy, which determines
      *                    the configuration file path in the format `api/<projectName>/api-<projectName>.fly.toml`.
      * @param verbose A flag indicating whether to print detailed output during the deployment process.
      */
     suspend fun deploy(
-        projectName: String,
+        project: String,
         verbose: Boolean,
     ) {
         val flyApiToken = loadSecret("FLY_API_TOKEN", apiEnvFilePath)
@@ -46,7 +46,7 @@ internal object ApiTask {
         executeCommand(
             commandParts = listOf(
                 "fly", "deploy",
-                "--config", "api/$projectName/api-$projectName.fly.toml",
+                "--config", "api/$project/api-$project.fly.toml",
                 "--access-token", flyApiToken,
             ),
         ).collect {

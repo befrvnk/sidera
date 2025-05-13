@@ -4,7 +4,7 @@
 
 # Projects
 
-- [CMD](cmd/README.md) A command line tool to automate repetitive tasks.
+- [cmd](cmd/README.md) A command line tool to automate repetitive tasks.
 
 # License
 

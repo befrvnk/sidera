@@ -3,10 +3,12 @@ package dev.befrvnk.cmd.api
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.core.subcommands
+import dev.befrvnk.cmd.api.dev.devCommand
 
 val apiCommand = ApiCommand().subcommands(
     ApiPublishCommand(),
     ApiRegistryCommand(),
+    devCommand,
 )
 
 class ApiCommand : CliktCommand(name = "api") {

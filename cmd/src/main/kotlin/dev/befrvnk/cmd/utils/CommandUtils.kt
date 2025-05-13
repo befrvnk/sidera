@@ -82,6 +82,13 @@ fun executeCommand(commandParts: List<String>, timeout: Long = 60): Flow<Process
     }
 }
 
+suspend fun Flow<ProcessEvent>.output() = collect {
+    when (it) {
+        is ProcessEvent.OutputLine -> println(it.line)
+        else -> {}
+    }
+}
+
 suspend fun loadSecret(
     secretName: String,
     environmentFilePath: String,
